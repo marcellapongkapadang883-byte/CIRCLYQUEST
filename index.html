@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -288,3 +288,165 @@
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kuis Lingkaran</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0f14;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.card {
+    background: #dbdde0;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #080808;
+    color: white;
+}
+
+button:hover {
+    background: #3d4653;
+}
+
+.benar {
+    background: #10b981 !important;
+}
+
+.salah {
+    background: #ef4444 !important;
+}
+
+.score-box {
+    background: #111827;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🎯 KUIS LINGKARAN</h2>
+
+<div class="score-box">
+    Skor: <b><span id="skor">0</span>/5</b>
+</div>
+
+<!-- SOAL -->
+<div class="card">
+<h3>1. Garis terpanjang?</h3>
+<button onclick="jawab(1,true,this)">Diameter</button>
+<button onclick="jawab(1,false,this)">Apotema</button>
+<p id="hasil1"></p>
+</div>
+
+<div class="card">
+<h3>2. Luas lingkaran r = 10?</h3>
+<button onclick="jawab(2,false,this)">31,4</button>
+<button onclick="jawab(2,true,this)">314</button>
+<p id="hasil2"></p>
+</div>
+
+<div class="card">
+<h3>3. Daerah antara busur & tali busur?</h3>
+<button onclick="jawab(3,false,this)">Juring</button>
+<button onclick="jawab(3,true,this)">Tembereng</button>
+<p id="hasil3"></p>
+</div>
+
+<div class="card">
+<h3>4. Diameter 28, jari-jari?</h3>
+<button onclick="jawab(4,true,this)">14</button>
+<button onclick="jawab(4,false,this)">56</button>
+<p id="hasil4"></p>
+</div>
+
+<div class="card">
+<h3>5. Keliling r = 7?</h3>
+<button onclick="jawab(5,true,this)">44</button>
+<button onclick="jawab(5,false,this)">154</button>
+<p id="hasil5"></p>
+</div>
+
+<button onclick="reset()">🔄 Ulangi Kuis</button>
+
+</div>
+
+<script>
+let skor = 0;
+let sudah = [false,false,false,false,false];
+
+function jawab(no, benar, btn){
+    if(sudah[no-1]) return;
+
+    sudah[no-1] = true;
+
+    let hasil = document.getElementById("hasil"+no);
+
+    if(benar){
+        hasil.innerHTML = "✅ BENAR";
+        skor++;
+        btn.classList.add("benar");
+    } else {
+        hasil.innerHTML = "❌ SALAH";
+        btn.classList.add("salah");
+    }
+
+    document.getElementById("skor").innerHTML = skor;
+
+    if(sudah.every(v => v)){
+        setTimeout(function(){
+            let pesan = "";
+            if(skor == 5) pesan = "PERFECT! 🎉";
+            else if(skor >= 3) pesan = "Bagus 👍";
+            else pesan = "Coba lagi 💪";
+
+            alert("Skor akhir: " + skor + "/5\n" + pesan);
+        },300);
+    }
+}
+
+function reset(){
+    skor = 0;
+    sudah = [false,false,false,false,false];
+
+    document.getElementById("skor").innerHTML = 0;
+
+    for(let i=1;i<=5;i++){
+        document.getElementById("hasil"+i).innerHTML = "";
+    }
+
+    document.querySelectorAll("button").forEach(btn=>{
+        btn.classList.remove("benar","salah");
+    });
+}
+</script>
+
+</body>
+</html>
+```
